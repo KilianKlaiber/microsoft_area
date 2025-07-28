@@ -3,7 +3,8 @@ Test suite for the rainwater trapping algorithm.
 Tests both the find_plateaus and calculate_area functions with various edge cases.
 """
 
-import pytest
+# No need to import pytest explicitly for test discovery and running.
+# Just run `pytest` from the command line in your project directory.
 from main import find_plateaus, calculate_area
 
 
