@@ -199,7 +199,3 @@ class TestEdgeCases:
         area = calculate_area(sky_line, plateaus)
         assert area == 0
 
-
-if __name__ == "__main__":
-    # Run tests with verbose output
-    pytest.main([__file__, "-v"])
