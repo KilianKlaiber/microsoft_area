@@ -9,9 +9,23 @@ def find_plateaus(sky_line: list[int]) -> dict[int, int]:
     Water is collected only between local maxima in the mountain range.
     Find all plateaus, i.e. local maxima or saddle points in the mountain range
 
+    Args:
+        sky_line: List of non-negative integers representing altitudes at each position.
+
     Returns:
         dict: position: height of plateaus.
+
+    Raises:
+        ValueError: If sky_line contains negative values or non-integer types.
+        TypeError: If sky_line is not a list or contains non-numeric values.
     """
+
+    # Input validation
+    if not isinstance(sky_line, list):
+        raise TypeError("sky_line must be a list")
+
+    if not sky_line:
+        return {}
 
     # Edge case more than 1 local maximum cannot be detected without at least 3 items in sky line.
     if len(sky_line) < 3:
@@ -21,6 +35,16 @@ def find_plateaus(sky_line: list[int]) -> dict[int, int]:
 
     plateaus: dict[int, int] = {}
     for position, height in enumerate(sky_line):
+        # Check for valid altitude values
+        if not isinstance(height, (int, float)):
+            raise TypeError(
+                f"All values must be numeric. Found {type(height).__name__} at position {position}"
+            )
+        if height < 0:
+            raise ValueError(
+                f"Negative altitude {height} at position {position}. Altitudes must be non-negative"
+            )
+        # Identify plateaus
         if position == 0:
             if height > sky_line[1]:
                 plateaus[position] = height
@@ -33,9 +57,6 @@ def find_plateaus(sky_line: list[int]) -> dict[int, int]:
     return plateaus
 
 
-# plateaus key is the position and the value is the height of the local maximum or saddle point.
-
-
 def calculate_area(
     sky_line: list[int],
     plateaus: dict[int, int],
@@ -45,9 +66,24 @@ def calculate_area(
     Find the highest and second highest peak among the plateaus and calculate the area between them.
     Repeat the same for the area outside of the range. This is done by use of recursion.
 
+    Args:
+        sky_line: List of non-negative integers representing altitudes.
+        plateaus: Dictionary mapping positions to heights of local maxima.
+        boundary_peak_position: Optional position to use as the highest peak for optimization.
+
     Returns:
         Integer: Area covered by water.
+
+    Raises:
+        ValueError: If plateaus contains invalid position indices or if boundary_peak_position is invalid.
+        TypeError: If inputs are of wrong type.
     """
+
+    # Input validation
+    if not isinstance(sky_line, list):
+        raise TypeError("sky_line must be a list")
+    if not isinstance(plateaus, dict):
+        raise TypeError("plateaus must be a dictionary")
 
     # Base case: need at least 2 plateaus to form a basin
     if len(plateaus) < 2:
