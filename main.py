@@ -42,6 +42,10 @@ def calculate_area(sky_line: list[int], plateaus: dict[int, int], boundary_peak_
         Integer: Area covered by water.
     """
     
+    # Base case: need at least 2 plateaus to form a basin
+    if len(plateaus) < 2:
+        return 0
+    
     # Identify location of the two highest peaks within the plateau
     plateaus_copy = plateaus.copy()
     
