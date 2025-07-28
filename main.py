@@ -35,8 +35,8 @@ def find_plateaus(sky_line: list[int]) -> dict[int, int]:
 def calculate_area(sky_line: list[int], plateaus: dict[int, int], boundary_peak_position: int | None = None) -> int:
     
     """ Calculate area covered by water recursively.
-    Find the highest and second highest peak among the plateaus and calculate the area.
-    Repeat the same for the area outside of the range between the highest and second highest plateau.
+    Find the highest and second highest peak among the plateaus and calculate the area between them.
+    Repeat the same for the area outside of the range. This is done by use of recursion.
 
     Returns:
         Integer: Area covered by water.
@@ -109,12 +109,19 @@ def main():
     print("Hello from microsoft-area!")
     
     sky_line = [2,4,2,1,1,3,2,2,4,2]
+    
+     # Add validation
+    if len(sky_line) < 3:
+        print("Error: Need at least 3 positions to calculate water area")
+        return
    
     plateaus = find_plateaus(sky_line)
     
     area = calculate_area(sky_line, plateaus)
     
     print(area)
+    
+    return area
             
 
 
