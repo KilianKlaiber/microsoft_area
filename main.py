@@ -47,14 +47,13 @@ def calculate_area(sky_line: list[int], plateaus: dict[int, int], boundary_peak_
         return 0
     
     # Identify location of the two highest peaks within the plateau
-    plateaus_copy = plateaus.copy()
     
     if boundary_peak_position is None:
         highest_peak_position = max(plateaus.keys(), key= lambda k: sky_line[k])
     else:
         highest_peak_position = boundary_peak_position
-    del plateaus_copy[highest_peak_position]
-    second_highest_peak_position = max(plateaus_copy.keys(), key= lambda k: sky_line[k])
+    
+    second_highest_peak_position = max(plateaus.keys(), key= lambda k: sky_line[k] if k != highest_peak_position else 0)
         
     # Identify the height and width of the area between these peaks covered by water
     height = min(sky_line[highest_peak_position], sky_line[second_highest_peak_position])
