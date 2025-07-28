@@ -14,6 +14,10 @@ def find_plateaus(sky_line: list[int]) -> dict[int, int]:
         dict: position: height of plateaus.
     """
     
+    # Edge case more than 1 local maximum cannot be detected without at least 3 items in sky line.
+    if len(sky_line) < 3:
+        return dict()
+    
     last_position = len(sky_line) - 1
     
     plateaus: dict[int, int] = {}
