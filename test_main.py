@@ -1,10 +1,10 @@
 """
-Test suite for the rainwater trapping algorithm.
-Tests both the find_plateaus and calculate_area functions with essential edge cases.
+Test module for the Plateau-Based Water Trapping algorithm.
+Tests the find_plateaus and calculate_area functions.
 """
 
 import pytest
-from main import find_plateaus, calculate_area
+from Plateau_Based_Water_Trapping import find_plateaus, calculate_area
 
 
 class TestFindPlateaus:

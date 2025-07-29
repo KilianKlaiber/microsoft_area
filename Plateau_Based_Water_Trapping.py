@@ -1,6 +1,10 @@
-"""Regard this list to resemble a sky line of a mountain range. sky_line = [0,2,1,1,3,2,2,4]
-Each index in the list is a position and each value resebles an altitude. Image that it rains incessantly until the water is collected between
+"""
+Plateau-Based Water Trapping algorithm for rainwater collection.
+Regard this list to resemble a sky line of a mountain range. sky_line = [0,2,1,1,3,2,2,4]
+Each index in the list is a position and each value resembles an altitude. Imagine that it rains incessantly until the water is collected between
 the peaks of the 2D mountain range. Calculate the area that the water covers between the peaks.
+
+Uses a recursive divide-and-conquer approach based on plateau (local maxima) detection.
 """
 
 
@@ -156,7 +160,7 @@ def calculate_area(
 
 
 def main():
-    print("Hello from microsoft-area!")
+    print("Plateau-Based Water Trapping Algorithm")
 
     sky_line = [2, 4, 2, 1, 1, 3, 2, 2, 4, 2]
 
@@ -169,7 +173,7 @@ def main():
 
     area = calculate_area(sky_line, plateaus)
 
-    print(area)
+    print(f"Water area (Plateau-Based): {area}")
 
     return area
 
