@@ -1,6 +1,7 @@
 """
-Alternative rainwater trapping algorithm using two-pointer approach.
+Hill-Climbing Basin Detection rainwater trapping algorithm.
 Processes from both ends toward the global maximum for O(n) efficiency.
+Measures water basins while "running up the hill" toward the peak.
 """
 
 
@@ -18,9 +19,13 @@ def calculate_area(
     Returns:
         Water area trapped in this basin
     """
+    # Calculate width - if no width, no water area
+    width = position - left_position - 1
+    if width <= 0:
+        return 0
+
     # Calculate area
     mountain_area = area_function[position] - area_function[left_position + 1]
-    width = position - left_position - 1
     upper_area = left_wall * width
     water_area = upper_area - mountain_area
 
@@ -42,21 +47,22 @@ def water_area_one_side(sky_line: list[int], maximum_position: int) -> int:
     """
     left_wall: int = sky_line[0]
     left_position: int = 0
-    in_bassin = False
+    in_basin = False
     ground_area_function = [
         0,
     ]
     water_area = 0
     for position, height in enumerate(sky_line):
         if position == maximum_position:
-            water_area += calculate_area(
-                ground_area_function, position, left_position, left_wall
-            )
+            if in_basin:
+                water_area += calculate_area(
+                    ground_area_function, position, left_position, left_wall
+                )
             break
         total_area = ground_area_function[-1] + height
         ground_area_function.append(total_area)
         if left_wall <= height:
-            if in_bassin:
+            if in_basin:
                 # Calculate area
                 water_area += calculate_area(
                     ground_area_function, position, left_position, left_wall
@@ -64,17 +70,17 @@ def water_area_one_side(sky_line: list[int], maximum_position: int) -> int:
 
             left_wall = height
             left_position = position
-            in_bassin = False
+            in_basin = False
             continue
 
         elif left_wall > height:
-            in_bassin = True
+            in_basin = True
 
     return water_area
 
 
 def main():
-    sky_line = [2, 4, 2, 1, 7, 3, 2, 2, 4, 2]
+    sky_line = [2, 4, 0, 7, 1, 4, 2]
 
     # Input validation
     if not sky_line or len(sky_line) < 3:
@@ -118,7 +124,7 @@ def main():
 
     water_area = left_area + right_area + between_area
 
-    print(f"Water area (Algorithm 2): {water_area}")
+    print(f"Water area (Hill-Climbing Basin Detection): {water_area}")
     return water_area
 
 
